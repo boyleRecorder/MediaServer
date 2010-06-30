@@ -1,3 +1,5 @@
+#ifndef FILEWRITE_H__
+#define FILEWRITE_H__
 
 struct FileWriteObject
 {
@@ -10,8 +12,10 @@ typedef void  FileWriteHandle
 
 FileWriteHandle* getNewHandle(char *fileName);
 
+void initialiseFileWriting();
+
 void closeFileWriteHandle(FileWriteHandle* handle);
 
 void writeDataChunk(FileWriteHandle *handle,struct bufferData *data); 
 
-
+#endif
