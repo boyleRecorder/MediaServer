@@ -1,0 +1,23 @@
+
+#include <stdlib.h>
+
+#include "bufferdata.h"
+
+
+struct bufferData* deepCopyBufferData(struct bufferData *data)
+{
+  struct bufferData *newObject = (struct bufferData *)malloc(sizeof(struct bufferData)); 
+  newObject->data = NULL;
+  newObject->length = 0;
+
+  if(data != NULL)
+  {
+    if(data->length > 0)
+    {
+      newObject->data = (short*)malloc(sizeof(short)*data->length);
+      newObject->length = data->length;
+    }
+  }
+
+  return newObject;
+}
