@@ -58,11 +58,35 @@ static void openPendingFiles()
 
 }
 
+static void writeFiles()
+{
+  int i;
+  int size = listSize(fileWriteList);
+  for(i=0;i<size;i++)
+  {
+    struct FileWriteObject *object = getElement(fileWriteList,i);
+    if(object->fileStatus == 1)
+    {
+      while(listSize(object->writeObjects) > 0)
+      {
+        // TODO: optomize this method.
+        // When writing lots of small blocks of data, they should be combined into a single 
+        // larger file write.
+        struct node *obj = popData(object->writeObjects);;
+        struct bufferData *data = obj->data;
+        destroyList(obj);
+        fwrite(data->data,sizeof(short),data->length,object->stream);
+      }
+    }
+  }
+}
+
 static void flushOutstandingDataInObjectToFile(struct FileWriteObject *object)
 {
   if(listSize(object->writeObjects) > 0)
   {
     printf("Outstanding data: %i\n",listSize(object->writeObjects));
+    writeFiles();
   }
 }
 
@@ -100,30 +124,6 @@ static void closePendingFiles()
 
       size --;
     }while(size > 0);
-  }
-}
-
-static void writeFiles()
-{
-  int i;
-  int size = listSize(fileWriteList);
-  for(i=0;i<size;i++)
-  {
-    struct FileWriteObject *object = getElement(fileWriteList,i);
-    if(object->fileStatus == 1)
-    {
-      if(listSize(object->writeObjects) > 0)
-      {
-        // TODO: optomize this method.
-        // When writing lots of small blocks of data, they should be combined into a single 
-        // larger file write.
-        printf("should be writing file: %s, length %i\n",object->fileName,listSize(object->writeObjects));
-        struct node *obj = popData(object->writeObjects);;
-        struct bufferData *data = obj->data;
-        destroyList(obj);
-        fwrite(data->data,sizeof(short),data->length,object->stream);
-      }
-    }
   }
 }
 
