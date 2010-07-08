@@ -20,4 +20,11 @@ struct bufferData
   short length;
 };
 
+/**
+  \fn struct bufferData* deepCopyBufferData(struct bufferData *data)
+  Does a deep copy of 'data' and returns a copy of it.
+  New data is allocated for the returned object.
+  */
+struct bufferData* deepCopyBufferData(struct bufferData *data);
+
 #endif
