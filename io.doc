@@ -1,4 +1,7 @@
 /**
  * \defgroup io Module to handle file io
+   \brief A module for doing all file io.
+
+   Groups all relevant io stuff into a separate module.
  */
 

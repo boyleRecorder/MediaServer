@@ -1,4 +1,7 @@
 /**
- * \defgroup common A set of base objects/functions. 
+ * \defgroup common A set of base objects/functions.
+   \brief Common functions.
+   
+   This module groups together a bunch of functions and objects used throughout the project.
  */
 

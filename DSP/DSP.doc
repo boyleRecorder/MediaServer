@@ -1,4 +1,7 @@
 /**
- * \defgroup DSP DSP Components 
+ * \defgroup DSP DSP Components
+   \brief Audio DSP module.
+
+   This module groups together all the audio DSP stuff, and places them into a single library.
  */
 
