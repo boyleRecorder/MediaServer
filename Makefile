@@ -5,9 +5,9 @@ DEPS =
 DEFINES=-DWRITE_UNIT_TEST
 LIBS=-lm -lpthread -llog4c 
 INCLUDES=-I./common/include
-OBJ = jitterbuffer.o filewrite.o DSPAlgorithms.o
+OBJ = filewrite.o 
 EXEC=test
-OBJLIBS=libcommon.dylib
+OBJLIBS=libcommon.dylib libdsp.dylib
 
 
 %.o: %.c $(DEPS)
@@ -19,7 +19,10 @@ test: $(OBJ) $(OBJLIBS)
 libcommon.dylib:
 	cd common; $(MAKE) $(MFLAG) 
 
+libdsp.dylib:
+	cd DSP; $(MAKE) $(MFLAG) 
+
 
 clean:
-	rm *.o rm $(EXEC)
-	cd common ; $(MAKE) $(MFLAG) clean
+	rm *.o $(EXEC) ; cd common ; $(MAKE) $(MFLAG) clean
+	cd DSP ; $(MAKE) $(MFLAG) clean
