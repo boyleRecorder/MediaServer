@@ -5,9 +5,9 @@ DEPS =
 DEFINES=-DWRITE_UNIT_TEST
 LIBS=-lm -lpthread -llog4c 
 INCLUDES=-I./common/include
-OBJ = filewrite.o 
+OBJ =  
 EXEC=test
-OBJLIBS=libcommon.dylib libdsp.dylib
+OBJLIBS=libcommon.dylib libdsp.dylib libio.dylib
 
 
 %.o: %.c $(DEPS)
@@ -21,6 +21,10 @@ libcommon.dylib:
 
 libdsp.dylib:
 	cd DSP; $(MAKE) $(MFLAG) 
+
+
+libio.dylib:
+	cd IO; $(MAKE) $(MFLAG) 
 
 
 clean:
