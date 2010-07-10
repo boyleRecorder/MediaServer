@@ -4,8 +4,8 @@ DIRS=common
 DEPS =
 DEFINES=-DWRITE_UNIT_TEST
 LIBS=-lm -lpthread -llog4c 
-INCLUDES=-I./common/include
-OBJ =  
+INCLUDES=-I./common/include -I./DSP/include -I./IO/include
+OBJ = main.o 
 EXEC=test
 OBJLIBS=libcommon.dylib libdsp.dylib libio.dylib
 
@@ -29,4 +29,4 @@ libio.dylib:
 
 clean:
 	rm *.o $(EXEC) ; cd common ; $(MAKE) $(MFLAG) clean
-	cd DSP ; $(MAKE) $(MFLAG) clean
+	cd DSP ; $(MAKE) $(MFLAG) clean ; cd ../IO ; $(MAKE) $(MFLAG) clean
