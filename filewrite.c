@@ -89,6 +89,21 @@ static void flushOutstandingDataInObjectToFile(struct FileWriteObject *object)
     writeFiles();
   }
 }
+static void destroyWriteObject(struct FileWriteObject *object)
+{
+  if(object != NULL)
+  {
+    free(object->fileName);
+    object->fileName = NULL;
+
+    destroyList(object->writeObjects);
+    object->writeObjects = NULL;
+
+    free(object);
+    object = NULL;
+  }
+}
+
 
 static void closePendingFiles()
 {
@@ -121,6 +136,7 @@ static void closePendingFiles()
 
       flushOutstandingDataInObjectToFile(object);
       fclose(object->stream);
+      destroyWriteObject(object);
 
       size --;
     }while(size > 0);
@@ -169,21 +185,6 @@ static struct FileWriteObject* createNewWriteObject(char *fileName)
 
   return object;
 
-}
-
-static void destroyWriteObject(struct FileWriteObject *object)
-{
-  if(object != NULL)
-  {
-    free(object->fileName);
-    object->fileName = NULL;
-
-    destroyList(object->writeObjects);
-    object->writeObjects = NULL;
-
-    free(object);
-    object = NULL;
-  }
 }
 
 static void pushHandleOntoOpenList(FileWriteHandle handle)
