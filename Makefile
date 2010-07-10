@@ -1,6 +1,5 @@
 include Makefile.inc
 CC=gcc
-#CFLAGS=-I. -g -ggdb -Wall -O0 -fstack-protector -fno-stack-protector -DWRITE_UNIT_TEST
 DIRS=common
 DEPS =
 DEFINES=-DWRITE_UNIT_TEST
