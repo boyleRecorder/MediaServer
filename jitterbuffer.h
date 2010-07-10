@@ -15,7 +15,7 @@
 // structures.
 ////////////////////////
 
-/**
+/** 
   \struct ReceivedPacket
   \brief A reduced version of a RTP packet.
   */

@@ -9,8 +9,13 @@
 #ifndef FILEWRITE_H__
 #define FILEWRITE_H__
 
+#include "list.h"
 #include "bufferdata.h"
 
+/**
+  \struct FileWriteObject
+  \brief An async object to be written to file. 
+*/
 struct FileWriteObject
 {
   char *fileName;

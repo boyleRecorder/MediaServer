@@ -12,11 +12,11 @@
   Bandwidth enumerator.
   Lists the supported bandwidths. 
   */
-enum{
+enum BandWidth{
    /// 8Khz audio
   BANDWIDTH_8K,
   /// 16 Khz
-  BANDWIDTH_16K 
+  BANDWIDTH_16K
 };
 
 /**

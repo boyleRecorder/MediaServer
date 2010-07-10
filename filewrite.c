@@ -171,6 +171,21 @@ static struct FileWriteObject* createNewWriteObject(char *fileName)
 
 }
 
+static void destroyWriteObject(struct FileWriteObject *object)
+{
+  if(object != NULL)
+  {
+    free(object->fileName);
+    object->fileName = NULL;
+
+    destroyList(object->writeObjects);
+    object->writeObjects = NULL;
+
+    free(object);
+    object = NULL;
+  }
+}
+
 static void pushHandleOntoOpenList(FileWriteHandle handle)
 {
   pthread_mutex_lock(&writeMutex);
@@ -185,7 +200,6 @@ static void pushHandleOntoOpenList(FileWriteHandle handle)
 FileWriteHandle getNewHandle(char *fileName)
 {
   FileWriteHandle handle = createNewWriteObject(fileName);
-  struct FileWriteObject *obj = (struct FileWriteObject *)handle;
   pushHandleOntoOpenList(handle);
 
   return handle;

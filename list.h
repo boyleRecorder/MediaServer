@@ -10,11 +10,13 @@
 
 /**
   \struct node
-  A node which is used to create a linked list.
+  \brief A node which is used to create a linked list.
   */
 struct node
 {
+  /// The next object in the linked list.
 	struct node *next;
+  /// The data for this element in the list.
 	void * data;
 };
 
@@ -24,7 +26,8 @@ struct node
 struct node * createNewList();
 
 /**
- Destroys the list node 
+ Destroys the list node.
+ \warning Does not do a deep destroy.
   */
 void destroyList(struct node*);
 

@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-I. -g -ggdb -Wall -O0 -fstack-protector -fno-stack-protector -DWRITE_UNIT_TEST
 DEPS =
 LIBS=-lm -lpthread -llog4c
-OBJ = list.o jitterbuffer.o filewrite.o bufferdata.o
+OBJ = list.o jitterbuffer.o filewrite.o bufferdata.o DSPAlgorithms.o
 EXEC=test
 
 %.o: %.c $(DEPS)
