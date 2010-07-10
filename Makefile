@@ -1,15 +1,26 @@
+include Makefile.inc
 CC=gcc
-CFLAGS=-I. -g -ggdb -Wall -O0 -fstack-protector -fno-stack-protector -DWRITE_UNIT_TEST
+#CFLAGS=-I. -g -ggdb -Wall -O0 -fstack-protector -fno-stack-protector -DWRITE_UNIT_TEST
+DIRS=common
 DEPS =
-LIBS=-lm -lpthread -llog4c
-OBJ = list.o jitterbuffer.o filewrite.o bufferdata.o DSPAlgorithms.o
+DEFINES=-DWRITE_UNIT_TEST
+LIBS=-lm -lpthread -llog4c 
+INCLUDES=-I./common/include
+OBJ = jitterbuffer.o filewrite.o DSPAlgorithms.o
 EXEC=test
+OBJLIBS=libcommon.dylib
+
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -c -o $@ $< $(CFLAGS) $(DEFINES) $(INCLUDES)
 
-test: $(OBJ)
+test: $(OBJ) $(OBJLIBS) 
 	gcc -o $@ $^ $(CFLAGS) $(LIBS)
 
+libcommon.dylib:
+	cd common; $(MAKE) $(MFLAG) 
+
+
 clean:
-	rm *.o
+	rm *.o rm $(EXEC)
+	cd common ; $(MAKE) $(MFLAG) clean
