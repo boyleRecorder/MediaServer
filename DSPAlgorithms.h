@@ -1,6 +1,7 @@
 
 /**
   @file DSPAlgorithms.h
+  @ingroup DSP
   \brief Some audio DSP algorithms. 
 */
 #ifndef DSPALGORITHMS_H__
@@ -24,8 +25,11 @@ struct ChannelEnergy
 };
 
 /**
-  \fn short getChannelEnergy(struct ChannelEnergy *, short *data)
+  \fn short getChannelEnergy(struct ChannelEnergy *, struct bufferData *data)
   Calculate the updated energy for the line using the new 'data'
+
+  This creates a moving average of the audio level with a history of approximately
+  100ms
 */
 short getChannelEnergy(struct ChannelEnergy *, struct bufferData *data);
 

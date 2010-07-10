@@ -319,12 +319,6 @@ static unsigned short currentJitterBufferSize(JitterBufferHandle *handle )
   return (handle->rxPtr - handle->txPtr) & JITTER_BUFFER_WRAP  ; 
 }
 
-/**
-  TODO:
-  */
-static void correctForClockSkew() 
-{
-}
 
 /**
   The rtp sequence number is only a short. This will over-run quite often. 
@@ -567,7 +561,6 @@ void processReceivedPacket(JitterBufferHandle *handle, struct ReceivedPacket *pa
     }
     else
     {  // We should now have proper data.
-      correctForClockSkew();
       dynamicallyResizeBuffer(handle);
       handleNormalPacket(handle,packet);
     }

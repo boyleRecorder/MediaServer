@@ -1,6 +1,7 @@
 
 /** 
   @file list.h
+  @ingroup common
   \brief A linked list implementation 
 
  */ 

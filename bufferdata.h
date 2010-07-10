@@ -3,6 +3,7 @@
 
 /**
  @file bufferdata.h
+  @ingroup common
  \brief A block of data.
  */
 

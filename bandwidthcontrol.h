@@ -1,5 +1,6 @@
 /**
  @file bandwidthcontrol.h
+  @ingroup DSP
  \brief Functions to Up/Down samples audio data from one bandwidth to another.
  */
 

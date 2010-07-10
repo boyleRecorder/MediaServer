@@ -1,6 +1,7 @@
 
 /** 
   @file jitterbuffer.h
+  @ingroup DSP
   \brief The jitter buffer
 
   This is a dynamic jitter buffer for RTP.
@@ -105,7 +106,7 @@ typedef struct JitterBuffer JitterBufferHandle ;
 
 
 /**
-  \fn JitterBufferHandle * createJitterBuffer()
+  \fn JitterBufferHandle * createJitterBuffer(unsigned chanId)
   \brief Creates a new jitter buffer.
   \param chanId The channel ID.
   */

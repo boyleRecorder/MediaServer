@@ -1,6 +1,7 @@
 
 /** 
   @file filewrite.h
+  @ingroup io 
   \brief  An async file writing library 
 
   A file writing mechanism that will never block.
