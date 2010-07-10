@@ -35,7 +35,7 @@ static void openPendingFiles()
     destroyList(listObject);
 
     // Warning: this can block.
-    FILE *stream = fopen(object->fileName,"a");
+    FILE *stream = fopen(object->fileName,"w");
     if(stream != NULL)
     {
       printf("Stream opened:\n");
@@ -72,7 +72,7 @@ static void writeFiles()
         // TODO: optomize this method.
         // When writing lots of small blocks of data, they should be combined into a single 
         // larger file write.
-        struct node *obj = popData(object->writeObjects);;
+        struct node *obj = popData(object->writeObjects);
         struct bufferData *data = obj->data;
         destroyList(obj);
         fwrite(data->data,sizeof(short),data->length,object->stream);
@@ -132,7 +132,7 @@ static volatile char fileWriteThreadInitialized = 0;
 static void* fileWritingThread(void *arg)
 {
   fileWriteThreadInitialized = 1;
-
+ 
   for(;;)
   {
     openPendingFiles();
@@ -150,18 +150,20 @@ static struct FileWriteObject* createNewWriteObject(char *fileName)
   struct FileWriteObject *object = NULL;
   if(fileName != NULL)
   {
-    object = (struct FileWriteObject*)malloc(sizeof(struct FileWriteObject *));
+    object = (struct FileWriteObject*)malloc(sizeof(struct FileWriteObject ));
     object->writeObjects = NULL;
     object->stream = NULL;
     object->fileName = NULL;
 
     object->fileName = (char*)malloc(sizeof(char)*128);
+    memset(object->fileName,0,128);
     unsigned length = strlen(fileName);
-    if(length >=128)
-      strncpy(object->fileName,fileName,128);
-    else
-      strncpy(object->fileName,fileName,length);
 
+
+    if(length >=128)
+      strncpy(object->fileName,fileName,127);
+    else
+      strcpy(object->fileName,fileName);
     object->writeObjects = createNewList();
   }
 
@@ -169,7 +171,7 @@ static struct FileWriteObject* createNewWriteObject(char *fileName)
 
 }
 
-static void pushHandleOntoOpenList(handle)
+static void pushHandleOntoOpenList(FileWriteHandle handle)
 {
   pthread_mutex_lock(&writeMutex);
   pushData(fileOpenList,(void*)handle);
@@ -183,6 +185,7 @@ static void pushHandleOntoOpenList(handle)
 FileWriteHandle getNewHandle(char *fileName)
 {
   FileWriteHandle handle = createNewWriteObject(fileName);
+  struct FileWriteObject *obj = (struct FileWriteObject *)handle;
   pushHandleOntoOpenList(handle);
 
   return handle;
@@ -262,7 +265,7 @@ int writeDataChunk(FileWriteHandle handle,struct bufferData *data)
   return 0;
 }
 
-#ifdef UNIT_TEST
+#ifdef WRITE_UNIT_TEST
 
 int main()
 {
@@ -273,12 +276,11 @@ int main()
   data.length = 160;
 
 
-
   initialiseFileWriting();
   FileWriteHandle handle;
 
   handle = getNewHandle("test.wav");
-
+  
   writeDataChunk(handle,&data);
   writeDataChunk(handle,&data);
   writeDataChunk(handle,&data);
