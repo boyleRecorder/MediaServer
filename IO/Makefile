@@ -1,9 +1,9 @@
 include ../Makefile.inc
 CC=gcc
 DEPS =
-INCLUDES=-I./include -I../common/include
+INCLUDES=-I./include -I../common/include 
 LIBS=-lm -lpthread -llog4c -L../ -lcommon
-OBJ = filewrite.o
+OBJ = filewrite.o wav.o
 DEFINES=
 LIBNAME=libio.dylib
 

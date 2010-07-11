@@ -75,7 +75,10 @@ static void writeFiles()
         struct node *obj = popData(object->writeObjects);
         struct bufferData *data = obj->data;
         destroyList(obj);
-        fwrite(data->data,sizeof(short),data->length,object->stream);
+        if(object->wav == NULL)
+          fwrite(data->data,sizeof(short),data->length,object->stream);
+        else
+          WAV_WriteData(object->wav,object->stream,data);
       }
     }
   }
@@ -135,7 +138,10 @@ static void closePendingFiles()
 
 
       flushOutstandingDataInObjectToFile(object);
-      fclose(object->stream);
+      if(object->wav == NULL)
+        fclose(object->stream);
+      else
+        closeWavSink(object->wav,object->stream);
       destroyWriteObject(object);
 
       size --;
@@ -171,6 +177,8 @@ static struct FileWriteObject* createNewWriteObject(char *fileName)
     object->stream = NULL;
     object->fileName = NULL;
 
+    object->wav = NULL;
+
     object->fileName = (char*)malloc(sizeof(char)*128);
     memset(object->fileName,0,128);
     unsigned length = strlen(fileName);
@@ -181,6 +189,10 @@ static struct FileWriteObject* createNewWriteObject(char *fileName)
     else
       strcpy(object->fileName,fileName);
     object->writeObjects = createNewList();
+
+    int channels = 1;
+    int codec = 0;
+    object->wav = createWavSink(channels,codec);
   }
 
   return object;

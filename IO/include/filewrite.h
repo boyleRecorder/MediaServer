@@ -5,6 +5,10 @@
   \brief  An async file writing library 
 
   A file writing mechanism that will never block.
+
+  This writing mechanism setups a separate thread to do all the 
+  file writing. The thread has a list, and the data is pushed
+  onto the list.
  */ 
 
 #ifndef FILEWRITE_H__
@@ -12,6 +16,7 @@
 
 #include "list.h"
 #include "bufferdata.h"
+#include "wav.h"
 
 /**
   \struct FileWriteObject
@@ -19,9 +24,13 @@
 */
 struct FileWriteObject
 {
+  /// The name of the file.
   char *fileName;
-  char fileType;
+  /// The wav header.
+  struct WavSink *wav;
+  /// The data objects which are to be written.
   struct node *writeObjects;
+  /// The file itself.
   FILE *stream;
   /// 0, not yet opened, 1 opened for writing, -1 opening failed.
   char fileStatus;
