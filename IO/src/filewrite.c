@@ -75,6 +75,15 @@ static void writeFiles()
         struct node *obj = popData(object->writeObjects);
         struct bufferData *data = obj->data;
         destroyList(obj);
+
+        {
+          int i;
+          FILE *stream = fopen("tmp.dat","a");
+          for(i=0;i<data->length;i++)
+            fprintf(stream,"%i\n",data->data[i]);
+          fclose(stream);
+        }
+
         if(object->wav == NULL)
           fwrite(data->data,sizeof(short),data->length,object->stream);
         else
@@ -159,8 +168,8 @@ static void* fileWritingThread(void *arg)
   {
     openPendingFiles();
     writeFiles();
-    usleep(100000);
     closePendingFiles();
+    usleep(1000);
   }
 
   return NULL;

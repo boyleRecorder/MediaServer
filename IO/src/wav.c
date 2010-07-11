@@ -105,8 +105,8 @@ void WAV_WriteData(struct WavSink *sink, FILE *stream, struct bufferData *data)
    // bytes at the start of the file. It will be overwritten later.
    if(ftell(stream) == 0)
    {
-     char emptyHeader[44];
-     fwrite(emptyHeader,sizeof(char),44,stream);
+     char emptyHeader[WAV_HDR];
+     fwrite(emptyHeader,sizeof(char),WAV_HDR,stream);
    }
    fwrite(data->data,sizeof(short),data->length,stream);
 }
@@ -116,7 +116,7 @@ void closeWavSink(struct WavSink *sink, FILE *stream)
 	closeHeader(sink->header,sink->length);
 
 	fseek(stream,0,0);
-	fwrite(sink->header,44,sizeof(char),stream);
+	fwrite(sink->header,WAV_HDR,sizeof(char),stream);
 
 	fclose(stream);
   stream = NULL;
@@ -159,9 +159,9 @@ int main(void)
 	FileSink *sink = createWavSink("Hello.wav",1);
 	writeHeader(buffer,1);
 
-	len=fill_data(buffer+44,523,SECONDS); /* left channel, 450Hz sine */
-	writeData(sink,buffer+44,len);
-	//	len+=fill_data(buffer+44+2,452,SECONDS); /* right channel, 452Hz sine */
+	len=fill_data(buffer+WAV_HDR,523,SECONDS); /* left channel, 450Hz sine */
+	writeData(sink,buffer+WAV_HDR,len);
+	//	len+=fill_data(buffer+WAV_HDR+2,452,SECONDS); /* right channel, 452Hz sine */
 
 	closeHeader(buffer,len);
 	closeWavSink(sink);

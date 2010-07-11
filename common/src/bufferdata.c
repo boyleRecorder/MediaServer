@@ -1,4 +1,4 @@
-
+#include <string.h>
 #include <stdlib.h>
 
 #include "bufferdata.h"
@@ -16,6 +16,9 @@ struct bufferData* deepCopyBufferData(struct bufferData *data)
     {
       newObject->data = (short*)malloc(sizeof(short)*data->length);
       newObject->length = data->length;
+      memcpy(newObject->data,data->data,data->length*sizeof(short));
+
+      
     }
   }
 
