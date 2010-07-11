@@ -38,7 +38,6 @@ static void openPendingFiles()
     FILE *stream = fopen(object->fileName,"w");
     if(stream != NULL)
     {
-      printf("Stream opened:\n");
       object->stream = stream;
 
       pthread_mutex_lock(&writeMutex);
@@ -75,14 +74,6 @@ static void writeFiles()
         struct node *obj = popData(object->writeObjects);
         struct bufferData *data = obj->data;
         destroyList(obj);
-
-        {
-          int i;
-          FILE *stream = fopen("tmp.dat","a");
-          for(i=0;i<data->length;i++)
-            fprintf(stream,"%i\n",data->data[i]);
-          fclose(stream);
-        }
 
         if(object->wav == NULL)
           fwrite(data->data,sizeof(short),data->length,object->stream);
