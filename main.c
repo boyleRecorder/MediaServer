@@ -63,8 +63,10 @@ int main()
 //  writeDataChunk(handle,&data);
 //  writeDataChunk(handle,&data);
 
-  sleep(1);
+printf("Closing handle.\n");
   closeFileWriteHandle(handle);
+  printf("begin sleeps.\n");
+  sleep(1);
 
   sleep(1);
   printf("End\n");

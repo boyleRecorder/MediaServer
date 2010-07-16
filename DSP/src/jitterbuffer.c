@@ -16,13 +16,14 @@
 /**
   \def JITTER_BUFFER_SIZE
   \brief The size of the jitter buffer.
+  This must always be a power of 2
   */
-#define JITTER_BUFFER_SIZE  0x800   // allways power of 2
+#define JITTER_BUFFER_SIZE  0x800
 
 
 
 /**
-  \def 
+  \def RUNNINV_AVERAGE_COUNNT
   \brief We averge the size of the jitter buffer over a time duration. This sets the time.
   */
 #define RUNNING_AVERAGE_COUNT 16

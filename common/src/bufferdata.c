@@ -24,3 +24,11 @@ struct bufferData* deepCopyBufferData(struct bufferData *data)
 
   return newObject;
 }
+
+struct bufferData* createBuffer(short size)
+{
+  struct bufferData *obj = (struct bufferData *)malloc(sizeof(struct bufferData));
+  obj->data = (short*)malloc(sizeof(short)*size);
+  obj->length = size;
+  return obj;
+}

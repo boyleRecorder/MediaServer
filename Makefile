@@ -2,7 +2,7 @@ include Makefile.inc
 CC=gcc
 DIRS=common
 DEPS =
-DEFINES=-DWRITE_UNIT_TEST
+DEFINES=
 LIBS=-lm -lpthread -llog4c 
 INCLUDES=-I./common/include -I./DSP/include -I./IO/include
 OBJ = main.o 

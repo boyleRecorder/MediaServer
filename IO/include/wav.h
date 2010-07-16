@@ -6,6 +6,10 @@
 #ifndef WAV_H__
 #define WAV_H__
 
+/**
+ \def WAV_HDR
+ \brief The size of a WAV header.
+*/
 #define WAV_HDR 44
 
 #include "bufferdata.h"

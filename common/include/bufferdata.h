@@ -28,4 +28,10 @@ struct bufferData
   */
 struct bufferData* deepCopyBufferData(struct bufferData *data);
 
+/**
+  \fn struct bufferData* createBuffer(short size)
+  Create a new storage object. Memory is allocated for a block of length 'size' of shorts.
+*/
+struct bufferData* createBuffer(short size);
+
 #endif

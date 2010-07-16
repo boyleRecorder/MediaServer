@@ -7,18 +7,8 @@
 #ifndef BANDWIDTHCONTROL_H__
 #define BANDWIDTHCONTROL_H__
 
+#include "bandwidth.h"
 #include "bufferdata.h"
-
-/**
-  Bandwidth enumerator.
-  Lists the supported bandwidths. 
-  */
-enum BandWidth{
-   /// 8Khz audio
-  BANDWIDTH_8K,
-  /// 16 Khz
-  BANDWIDTH_16K
-};
 
 /**
   \fn void upSampleData(struct bufferData *lowFreq, struct bufferData *highFreq);

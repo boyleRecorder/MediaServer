@@ -8,7 +8,8 @@
 #define CODEC_H__
 
 /**
-\enum A list of codecs.
+\enum CodecList
+\brief A list of codecs.
 */
 enum CodecList {
 /// Raw PCM
@@ -16,7 +17,8 @@ PCM,
 /// G711 a-law
 G711A,
 /// G711 mu-law
-G711U} ;
+G711U
+} ;
 
 
 

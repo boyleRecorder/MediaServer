@@ -3,7 +3,7 @@ CC=gcc
 DEPS =
 INCLUDES=-I./include -I../common/include 
 LIBS=-lm -lpthread -llog4c -L../ -lcommon
-OBJ = filewrite.o wav.o
+OBJ = filewrite.o fileread.o wav.o
 DEFINES=
 LIBNAME=libio.dylib
 

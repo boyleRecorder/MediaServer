@@ -34,6 +34,7 @@ struct FileWriteObject
   FILE *stream;
   /// 0, not yet opened, 1 opened for writing, -1 opening failed.
   char fileStatus;
+
 };
 
 /**
